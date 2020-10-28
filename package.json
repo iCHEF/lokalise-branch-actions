@@ -1,0 +1,21 @@
+{
+  "name": "lokalise-actions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint:fix": " standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@lokalise/node-api": "^5.2.0"
+  },
+  "devDependencies": {
+    "standard": "^15.0.0"
+  }
+}
