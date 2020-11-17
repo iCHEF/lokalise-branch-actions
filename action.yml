@@ -22,8 +22,13 @@ inputs:
     required: true
 
 outputs:
-  findByNameResult: # id of output
-    description: "The time we greeted you"
+  findByNameResult:
+    description: "Result of findByName action"
+  createResult:
+    description: "Result of create action"
+  mergeResult:
+    description: "Result of merge action"
+
 runs:
   using: "node12"
   main: "index.js"

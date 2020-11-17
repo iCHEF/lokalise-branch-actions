@@ -33,12 +33,15 @@ try {
   switch (actionType) {
     case 'findByName':
       core.setOutput("findByNameResult", findByName(actionPayload));
+      break;
 
     case 'create':
       core.setOutput("createResult", create(actionPayload));
+      break;
 
     case 'merge':
       core.setOutput("mergeResult", merge(actionPayload));
+      break;
 
     case 'createAndBackport':
       const { branchNameToCreate, branchNameToBackport } = actionPayload;
@@ -48,6 +51,7 @@ try {
         branchIdToMerge: branchToBackport.id,
         targetBranchId: branchToCreate.id,
       }));
+      break;
   }
 
   // Get the JSON webhook payload for the event that triggered the workflow
