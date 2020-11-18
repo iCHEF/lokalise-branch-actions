@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
-    "lint:fix": " standard --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +14,6 @@
     "@lokalise/node-api": "^5.2.0"
   },
   "devDependencies": {
-    "standard": "^15.0.0"
+    "prettier": "2.1.2"
   }
 }
