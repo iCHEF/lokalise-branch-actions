@@ -9,10 +9,6 @@ inputs:
     description: "Lokalise key with write permission"
     required: true
 
-  branchName:
-    description: "Lokalise branch name"
-    required: false
-
   actionType:
     description: 'branch action type ["findByName", "create", "merge", "createAndBackport"]'
     required: true
