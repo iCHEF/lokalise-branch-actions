@@ -27,7 +27,7 @@ try {
     const findByName = async (branchName) => {
         const branchList = await lokaliseApi.branches.list({ project_id: projectId });
         console.log(JSON.stringify(branchList));
-        branchList.find((element) => element.name === branchName);
+        return branchList.find((element) => element.name === branchName);
     };
 
     switch (actionType) {
