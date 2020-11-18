@@ -11,13 +11,17 @@ const { LokaliseApi } = __webpack_require__(4150);
 try {
   // get inputs which defined in action metadata file
   const projectId = core.getInput("projectId");
+  console.log('projectId: ', projectId);
   const apiKey = core.getInput("apiKey");
   const actionType = core.getInput("actionType");
+  console.log('actionType: ', actionType);
   const actionPayload = core.getInput("actionPayload");
+  console.log('actionPayload: ', actionPayload);
 
   // init API instance
   const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
   const branchList = lokaliseApi.branches.list({ project_id: projectId });
+  console.log(JSON.stringify(branchList))
 
   const create = (branchName) =>
     lokaliseApi.branches.create(
