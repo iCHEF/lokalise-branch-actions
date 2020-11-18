@@ -21,11 +21,11 @@ try {
     // init API instance
     const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
-    const create = (branchName) =>
-        lokaliseApi.branches.create({ name: branchName }, { project_id: projectId });
+    const create = async (branchName) =>
+        await lokaliseApi.branches.create({ name: branchName }, { project_id: projectId });
 
-    const merge = ({ branchIdToMerge, targetBranchId }) =>
-        lokaliseApi.branches.merge(
+    const merge = async ({ branchIdToMerge, targetBranchId }) =>
+        await lokaliseApi.branches.merge(
             branchIdToMerge,
             { project_id: projectId },
             { target_branch_id: targetBranchId }
@@ -38,32 +38,35 @@ try {
         return foundBranch;
     };
 
-    switch (actionType) {
-        case 'findByName':
-            core.setOutput('findByNameResult', findByName(actionPayload));
-            break;
+    (async () => {
+        switch (actionType) {
+            case 'findByName':
+                const foundBranch = await findByName(actionPayload);
+                core.setOutput('findByNameResult', foundBranch);
+                break;
 
-        case 'create':
-            core.setOutput('createResult', create(actionPayload));
-            break;
+            case 'create':
+                const createdResult = await create(actionPayload);
+                core.setOutput('createResult', createdResult);
+                break;
 
-        case 'merge':
-            core.setOutput('mergeResult', merge(actionPayload));
-            break;
+            case 'merge':
+                const mergedResult = await merge(actionPayload);
+                core.setOutput('mergeResult', mergedResult);
+                break;
 
-        case 'createAndBackport':
-            const { branchNameToCreate, branchNameToBackport } = actionPayload;
-            const branchToBackport = getByName(branchNameToBackport);
-            const branchToCreate = create(branchNameToCreate);
-            core.setOutput(
-                'createAndBackportResult',
-                merge({
-                    branchIdToMerge: branchToBackport.id,
-                    targetBranchId: branchToCreate.id,
-                })
-            );
-            break;
-    }
+            case 'createAndBackport':
+                const { branchNameToCreate, branchNameToBackport } = actionPayload;
+                const branchToBackport = await findByName(branchNameToBackport);
+                const branchToCreate = await create(branchNameToCreate);
+                const createAndBackportResult = merge({
+                    branchIdToMerge: branchToBackport.branch_id,
+                    targetBranchId: branchToCreate.branch_id,
+                });
+                core.setOutput('createAndBackportResult', createAndBackportResult);
+                break;
+        }
+    })();
 
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
