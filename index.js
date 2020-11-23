@@ -86,23 +86,23 @@ const main = async () => {
   switch (actionType) {
     case 'findByName':
       const foundBranch = await findByName(actionPayload);
-      core.setOutput('findByNameResult', foundBranch);
+      core.setOutput('findByNameResult', JSON.stringify(foundBranch));
       break;
 
     case 'create':
       const createdResult = await create(actionPayload);
-      core.setOutput('createResult', createdResult);
+      core.setOutput('createResult', JSON.stringify(createdResult));
       break;
 
     case 'merge':
       const mergedResult = await merge(actionPayload);
       console.log('mergedResult: ', mergedResult);
-      core.setOutput('mergeResult', mergedResult);
+      core.setOutput('mergeResult', JSON.stringify(mergedResult));
       break;
 
     case 'createAndBackport':
       const createAndBackportResult = await createAndBackport(actionPayload);
-      core.setOutput('createAndBackportResult', createAndBackportResult);
+      core.setOutput('createAndBackportResult', JSON.stringify(createAndBackportResult));
       break;
   }
 
