@@ -18,12 +18,8 @@ inputs:
     required: true
 
 outputs:
-  findByNameResult:
-    description: "Result of findByName action"
-  createResult:
-    description: "Result of create action"
-  mergeResult:
-    description: "Result of merge action"
+  result:
+    description: "Result of action"
 
 runs:
   using: "node12"
