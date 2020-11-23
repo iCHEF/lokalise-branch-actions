@@ -18,17 +18,24 @@ console.log('projectId: ', projectId);
 console.log('actionType: ', actionType);
 console.log('123 actionPayload: ', actionPayload);
 
+const formatBranchName = (name) => name.replace(/\./g, '_');
+
 const main = async () => {
   // init API instance
   const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
   const create = async (branchName) => {
-    return await lokaliseApi.branches.create({ name: branchName }, { project_id: projectId });
+    const formattedBranchName = formatBranchName(branchName);
+    return await lokaliseApi.branches.create(
+      { name: formattedBranchName },
+      { project_id: projectId }
+    );
   };
 
   const findByName = async (branchName) => {
+    const formattedBranchName = formatBranchName(branchName);
     const branchList = await lokaliseApi.branches.list({ project_id: projectId });
-    const foundBranch = branchList.find((element) => element.name === branchName);
+    const foundBranch = branchList.find((element) => element.name === formattedBranchName);
     console.log(JSON.stringify(foundBranch));
     return foundBranch;
   };
@@ -38,23 +45,28 @@ const main = async () => {
     targeBranchName,
     throwBranchNotExistError = false,
   }) => {
-    console.log('branchNameToMerge: ', branchNameToMerge);
-    console.log('targeBranchName: ', targeBranchName);
-    const headBranch = await findByName(branchNameToMerge);
-    console.log('headBranch: ', headBranch);
-    const baseBranch = await findByName(targeBranchName);
-    console.log('baseBranch: ', baseBranch);
+    const headBranch = await findByName(formatBranchName(branchNameToMerge));
+    const baseBranch = await findByName(formatBranchName(targeBranchName));
 
-    if(!headBranch || !baseBranch) {
-      if (throwBranchNotExistError) {
-        if (!headBranch) {
-          throw new Error(`Merge failed: The head branch ${branchNameToMerge} is not exist.`);
-        }
+    if (!headBranch || !baseBranch) {
+      if (!headBranch) {
+        const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
 
-        if (!baseBranch) {
-          throw new Error(`Merge failed: The base branch ${targeBranchName} is not exist.`);
+        console.log(errorMessage);
+        if (throwBranchNotExistError) {
+          throw new Error(errorMessage);
         }
       }
+
+      if (!baseBranch) {
+        const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
+
+        console.log(errorMessage);
+        if (throwBranchNotExistError) {
+          throw new Error(errorMessage);
+        }
+      }
+
       return null;
     }
 
@@ -65,7 +77,11 @@ const main = async () => {
     );
   };
 
-  const createAndBackport = async ({ branchNameToCreate, branchNameToBackport, throwBranchNotExistError }) => {
+  const createAndBackport = async ({
+    branchNameToCreate,
+    branchNameToBackport,
+    throwBranchNotExistError,
+  }) => {
     await create(branchNameToCreate);
 
     return await merge({
