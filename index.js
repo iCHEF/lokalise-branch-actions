@@ -5,7 +5,7 @@ const { LokaliseApi } = require('@lokalise/node-api');
 const projectId = core.getInput('projectId');
 const apiKey = core.getInput('apiKey');
 const actionType = core.getInput('actionType');
-const actionPayload = core.getInput('actionPayload');
+const actionPayload = JSON.parse(core.getInput('actionPayload'));
 
 console.log('projectId: ', projectId);
 console.log('actionType: ', actionType);
