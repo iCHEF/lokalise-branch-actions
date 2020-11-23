@@ -9,7 +9,7 @@ const actionPayload = JSON.parse(core.getInput('actionPayload'));
 
 console.log('projectId: ', projectId);
 console.log('actionType: ', actionType);
-console.log('actionPayload: ', actionPayload);
+console.log('123 actionPayload: ', actionPayload);
 
 const main = async () => {
   // init API instance
