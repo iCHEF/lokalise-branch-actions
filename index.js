@@ -99,7 +99,7 @@ const main = async () => {
     case 'merge':
       const mergedResult = await merge(actionPayload);
       console.log('mergedResult: ', mergedResult);
-      result = JSON.stringify(mergedResult);
+      result = mergedResult;
       break;
 
     case 'createAndBackport':
