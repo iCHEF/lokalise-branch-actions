@@ -45,14 +45,17 @@ const main = async () => {
     const baseBranch = await findByName(targeBranchName);
     console.log('baseBranch: ', baseBranch);
 
-    if (throwBranchNotExistError) {
-      if (!headBranch) {
-        throw new Error(`Merge failed: The head branch ${branchNameToMerge} is not exist.`);
-      }
+    if(!headBranch || !baseBranch) {
+      if (throwBranchNotExistError) {
+        if (!headBranch) {
+          throw new Error(`Merge failed: The head branch ${branchNameToMerge} is not exist.`);
+        }
 
-      if (!baseBranch) {
-        throw new Error(`Merge failed: The base branch ${targeBranchName} is not exist.`);
+        if (!baseBranch) {
+          throw new Error(`Merge failed: The base branch ${targeBranchName} is not exist.`);
+        }
       }
+      return null;
     }
 
     return await lokaliseApi.branches.merge(
