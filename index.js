@@ -9,7 +9,7 @@ const actionPayload = JSON.parse(core.getInput('actionPayload'));
 
 console.log('projectId: ', projectId);
 console.log('actionType: ', actionType);
-console.log('123 actionPayload: ', actionPayload);
+console.log('actionPayload: ', actionPayload);
 
 const formatBranchName = (name) => name.replace(/\./g, '_');
 
@@ -29,7 +29,6 @@ const main = async () => {
     const formattedBranchName = formatBranchName(branchName);
     const branchList = await lokaliseApi.branches.list({ project_id: projectId });
     const foundBranch = branchList.find((element) => element.name === formattedBranchName);
-    console.log(JSON.stringify(foundBranch));
     return foundBranch;
   };
 
@@ -97,6 +96,7 @@ const main = async () => {
 
     case 'merge':
       const mergedResult = await merge(actionPayload);
+      console.log('mergedResult: ', mergedResult);
       core.setOutput('mergeResult', mergedResult);
       break;
 
