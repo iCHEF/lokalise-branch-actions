@@ -94,8 +94,8 @@ const main = async () => {
 
   switch (actionType) {
     case 'findByName':
-      const foundBranch = await findByName(actionPayload);
-      result = foundBranch;
+      const foundBranchResult= await findByName(actionPayload);
+      result = foundBranchResult;
       break;
 
     case 'create':
@@ -124,6 +124,7 @@ const main = async () => {
 try {
   main();
 } catch (error) {
+  console.log('error: ', error.message);
   core.setFailed(error.message);
 }
 
