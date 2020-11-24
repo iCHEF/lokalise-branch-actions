@@ -18,6 +18,8 @@ inputs:
     required: true
 
 outputs:
+  error:
+    description: "Error data when action failed"
   result:
     description: "Result of action"
 

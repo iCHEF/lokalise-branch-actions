@@ -75,7 +75,17 @@ const main = async () => {
       return result;
     } catch (error) {
       console.log('Merge error: ', error);
-      console.log('Merge request url: ', `https://app.lokalise.com/merge/${projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`);
+      const pullRequestUrl = `https://app.lokalise.com/merge/${projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`;
+      console.log('Pull request url: ', pullRequestUrl);
+      core.setOutput(
+        'error',
+        JSON.stringify({
+          error,
+          data: {
+            pullRequestUrl,
+          },
+        })
+      );
       core.setFailed(error.message);
     }
   };
