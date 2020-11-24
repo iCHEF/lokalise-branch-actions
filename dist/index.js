@@ -98,7 +98,7 @@ const main = async () => {
           })
         );
 
-        throw new Error(error);
+        throw error;
       }
     };
 
