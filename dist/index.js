@@ -95,26 +95,26 @@ const main = async () => {
   switch (actionType) {
     case 'findByName':
       const foundBranch = await findByName(actionPayload);
-      result = JSON.stringify(foundBranch);
+      result = foundBranch;
       break;
 
     case 'create':
       const createdResult = await create(actionPayload);
-      result = JSON.stringify(createdResult);
+      result = createdResult;
       break;
 
     case 'merge':
       const mergedResult = await merge(actionPayload);
-      console.log('mergedResult: ', mergedResult);
-      result = JSON.stringify(mergedResult);
+      result = mergedResult;
       break;
 
     case 'createAndBackport':
       const createAndBackportResult = await createAndBackport(actionPayload);
-      result = JSON.stringify(createAndBackportResult);
+      result = createAndBackportResult;
       break;
   }
 
+  console.log('result: ', result);
   core.setOutput('result', JSON.stringify(result));
   // Get the JSON webhook payload for the event that triggered the workflow
   // const payload = JSON.stringify(github.context.payload, undefined, 2)
