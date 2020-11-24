@@ -37,10 +37,11 @@ const main = async () => {
     targeBranchName,
     throwBranchNotExistError = false,
   }) => {
+    let headBranch, baseBranch;
     try {
-      const headBranch = await findByName(formatBranchName(branchNameToMerge));
+      headBranch = await findByName(formatBranchName(branchNameToMerge));
       console.log('headBranch: ', headBranch);
-      const baseBranch = await findByName(formatBranchName(targeBranchName));
+      baseBranch = await findByName(formatBranchName(targeBranchName));
       console.log('baseBranch: ', baseBranch);
 
       if (!headBranch || !baseBranch) {
