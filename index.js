@@ -75,7 +75,7 @@ const main = async () => {
       return result;
     } catch (error) {
       console.log('merge error: ', error);
-      throw Error(error);
+      core.setFailed(error.message);
     }
   };
 
