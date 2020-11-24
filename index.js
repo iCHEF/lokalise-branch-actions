@@ -113,12 +113,12 @@ const main = async () => {
 
     switch (actionType) {
       case 'findByName':
-        const foundBranchResult = await findByName(actionPayload);
+        const foundBranchResult = await findByName(actionPayload.branchNameToFind);
         result = foundBranchResult;
         break;
 
       case 'create':
-        const createdResult = await create(actionPayload);
+        const createdResult = await create(actionPayload.branchNameToCreate);
         result = createdResult;
         break;
 
