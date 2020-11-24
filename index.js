@@ -37,40 +37,44 @@ const main = async () => {
     targeBranchName,
     throwBranchNotExistError = false,
   }) => {
-    const headBranch = await findByName(formatBranchName(branchNameToMerge));
-    console.log('headBranch: ', headBranch);
-    const baseBranch = await findByName(formatBranchName(targeBranchName));
-    console.log('baseBranch: ', baseBranch);
+    try {
+      const headBranch = await findByName(formatBranchName(branchNameToMerge));
+      console.log('headBranch: ', headBranch);
+      const baseBranch = await findByName(formatBranchName(targeBranchName));
+      console.log('baseBranch: ', baseBranch);
 
-    if (!headBranch || !baseBranch) {
-      if (!headBranch) {
-        const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
+      if (!headBranch || !baseBranch) {
+        if (!headBranch) {
+          const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
 
-        console.log(errorMessage);
-        if (throwBranchNotExistError) {
-          throw new Error(errorMessage);
+          console.log(errorMessage);
+          if (throwBranchNotExistError) {
+            throw new Error(errorMessage);
+          }
         }
+
+        if (!baseBranch) {
+          const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
+
+          console.log(errorMessage);
+          if (throwBranchNotExistError) {
+            throw new Error(errorMessage);
+          }
+        }
+
+        return null;
       }
 
-      if (!baseBranch) {
-        const errorMessage = `Merge failed: The head branch ${branchNameToMerge} is not exist.`;
+      const result = await lokaliseApi.branches.merge(
+        headBranch.branch_id,
+        { project_id: projectId },
+        { target_branch_id: baseBranch.branch_id }
+      );
 
-        console.log(errorMessage);
-        if (throwBranchNotExistError) {
-          throw new Error(errorMessage);
-        }
-      }
-
-      return null;
+      return result;
+    } catch (error) {
+      throw error;
     }
-
-    const result = await lokaliseApi.branches.merge(
-      headBranch.branch_id,
-      { project_id: projectId },
-      { target_branch_id: baseBranch.branch_id }
-    );
-
-    return result;
   };
 
   const createAndBackport = async ({
@@ -91,7 +95,7 @@ const main = async () => {
 
   switch (actionType) {
     case 'findByName':
-      const foundBranchResult= await findByName(actionPayload);
+      const foundBranchResult = await findByName(actionPayload);
       result = foundBranchResult;
       break;
 
