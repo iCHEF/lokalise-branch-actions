@@ -45,7 +45,9 @@ const main = async () => {
     throwBranchNotExistError = false,
   }) => {
     const headBranch = await findByName(formatBranchName(branchNameToMerge));
+    console.log('headBranch: ', headBranch);
     const baseBranch = await findByName(formatBranchName(targeBranchName));
+    console.log('baseBranch: ', baseBranch);
 
     if (!headBranch || !baseBranch) {
       if (!headBranch) {
@@ -69,11 +71,13 @@ const main = async () => {
       return null;
     }
 
-    return await lokaliseApi.branches.merge(
+    const result = await lokaliseApi.branches.merge(
       headBranch.branch_id,
       { project_id: projectId },
       { target_branch_id: baseBranch.branch_id }
     );
+
+    return result;
   };
 
   const createAndBackport = async ({
