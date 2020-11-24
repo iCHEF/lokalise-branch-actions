@@ -71,15 +71,17 @@ const main = async () => {
 
         return null;
       }
-
+      console.log('before merge');
       const result = await lokaliseApi.branches.merge(
         headBranch.branch_id,
         { project_id: projectId },
         { target_branch_id: baseBranch.branch_id }
       );
+      console.log('result: ', result);
 
       return result;
     } catch (error) {
+      console.log('merge error: ', error);
       throw error;
     }
   };
