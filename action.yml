@@ -18,6 +18,8 @@ inputs:
     required: true
 
 outputs:
+  projectName:
+    description: "Lokalise project name"
   error:
     description: "Error data when action failed"
   result:

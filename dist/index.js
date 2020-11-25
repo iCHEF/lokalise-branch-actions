@@ -23,6 +23,11 @@ const formatBranchName = (name) => name.replace(/\./g, '_');
 // init API instance
 const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
+const setProjectNameToOutputs = async () => {
+  const project = await lokaliseApi.projects.get(projectId);
+  core.setOutput('projectName', project.name);
+};
+
 const create = async (branchName) => {
   const formattedBranchName = formatBranchName(branchName);
   return await lokaliseApi.branches.create(
@@ -37,7 +42,7 @@ const findByName = async (branchName) => {
     const branchList = await lokaliseApi.branches.list({ project_id: projectId });
     const foundBranch = branchList.find((element) => element.name === formattedBranchName);
     return foundBranch;
-  } catch(error) {
+  } catch (error) {
     throw error;
   }
 };
@@ -109,7 +114,7 @@ const createAndBackport = async ({
       targeBranchName: branchNameToCreate,
       throwBranchNotExistError,
     });
-  } catch(error) {
+  } catch (error) {
     throw error;
   }
 };
@@ -151,6 +156,7 @@ const main = async () => {
   }
 };
 
+setProjectNameToOutputs();
 main();
 
 
