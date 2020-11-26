@@ -107,7 +107,8 @@ const createAndBackport = async ({
   throwBranchNotExistError,
 }) => {
   try {
-    await create(branchNameToCreate);
+    const createdResult = await create(branchNameToCreate);
+    console.log('create: ', createdResult);
 
     return await merge({
       branchNameToMerge: branchNameToBackport,
@@ -119,7 +120,7 @@ const createAndBackport = async ({
   }
 };
 
-const main = async () => {
+const actionTypeHandler = async () => {
   try {
     let result;
 
@@ -156,8 +157,14 @@ const main = async () => {
   }
 };
 
-setProjectNameToOutputs();
+
+const main = async () => {
+  await setProjectNameToOutputs();
+  await actionTypeHandler();
+}
+
 main();
+
 
 
 /***/ }),
