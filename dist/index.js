@@ -10,10 +10,10 @@ module.exports =
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/lokaliseApi.js
-const lokaliseApi_core = __webpack_require__(2559);
+const core = __webpack_require__(2559);
 const { LokaliseApi } = __webpack_require__(4150);
 
-const apiKey = lokaliseApi_core.getInput('apiKey');
+const apiKey = core.getInput('apiKey');
 const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
 /* harmony default export */ const src_lokaliseApi = (lokaliseApi);
@@ -22,8 +22,10 @@ const formatBranchName = (name) => name.replace(/\./g, '_');
 
 /* harmony default export */ const utils_formatBranchName = (formatBranchName);
 // CONCATENATED MODULE: ./src/actions/findBranchByName.js
+const findBranchByName_core = __webpack_require__(2559);
 
 
+const projectId = findBranchByName_core.getInput('projectId');
 
 const findBranchByName = async (branchName) => {
   try {
@@ -38,21 +40,26 @@ const findBranchByName = async (branchName) => {
 
 /* harmony default export */ const actions_findBranchByName = (findBranchByName);
 // CONCATENATED MODULE: ./src/actions/createBranch.js
+const createBranch_core = __webpack_require__(2559);
 
 
+const createBranch_projectId = createBranch_core.getInput('projectId');
 
 const createBranch = async (branchName) => {
   const formattedBranchName = utils_formatBranchName(branchName);
   return await src_lokaliseApi.branches.create(
     { name: formattedBranchName },
-    { project_id: projectId }
+    { project_id: createBranch_projectId }
   );
 };
 
 /* harmony default export */ const actions_createBranch = (createBranch);
 // CONCATENATED MODULE: ./src/actions/mergeBranch.js
+const mergeBranch_core = __webpack_require__(2559);
 
 
+
+const mergeBranch_projectId = mergeBranch_core.getInput('projectId');
 
 const mergeBranch = async ({
   branchNameToMerge,
@@ -88,16 +95,16 @@ const mergeBranch = async ({
     }
     return await src_lokaliseApi.branches.merge(
       headBranch.branch_id,
-      { project_id: projectId },
+      { project_id: mergeBranch_projectId },
       { target_branch_id: baseBranch.branch_id }
     );
   } catch (error) {
-    const pullRequestUrl = `https://app.lokalise.com/merge/${projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`;
+    const pullRequestUrl = `https://app.lokalise.com/merge/${mergeBranch_projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`;
 
     console.log('Merge error: ', error);
     console.log('Pull request url: ', pullRequestUrl);
 
-    core.setOutput(
+    mergeBranch_core.setOutput(
       'error',
       JSON.stringify({
         error,
