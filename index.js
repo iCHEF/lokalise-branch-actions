@@ -18,6 +18,7 @@ const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
 const setProjectNameToOutputs = async () => {
   const project = await lokaliseApi.projects.get(projectId);
+  console.log('project: ', project);
   core.setOutput('projectName', project.name);
 };
 
