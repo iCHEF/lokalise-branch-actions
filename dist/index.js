@@ -2,45 +2,33 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 1441:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 5923:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-const core = __webpack_require__(2559);
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./src/lokaliseApi.js
+const lokaliseApi_core = __webpack_require__(2559);
 const { LokaliseApi } = __webpack_require__(4150);
 
-// get inputs which defined in action metadata file
-const projectId = core.getInput('projectId');
-const apiKey = core.getInput('apiKey');
-const actionType = core.getInput('actionType');
-const actionPayload = JSON.parse(core.getInput('actionPayload'));
-
-console.log('projectId: ', projectId);
-console.log('actionType: ', actionType);
-console.log('actionPayload: ', actionPayload);
-
-const formatBranchName = (name) => name.replace(/\./g, '_');
-
-// init API instance
+const apiKey = lokaliseApi_core.getInput('apiKey');
 const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
-const setProjectNameToOutputs = async () => {
-  const project = await lokaliseApi.projects.get(projectId);
-  console.log('project: ', project);
-  core.setOutput('projectName', project.name);
-};
+/* harmony default export */ const src_lokaliseApi = (lokaliseApi);
+// CONCATENATED MODULE: ./src/utils/formatBranchName.js
+const formatBranchName = (name) => name.replace(/\./g, '_');
 
-const create = async (branchName) => {
-  const formattedBranchName = formatBranchName(branchName);
-  return await lokaliseApi.branches.create(
-    { name: formattedBranchName },
-    { project_id: projectId }
-  );
-};
+/* harmony default export */ const utils_formatBranchName = (formatBranchName);
+// CONCATENATED MODULE: ./src/actions/findBranchByName.js
 
-const findByName = async (branchName) => {
+
+
+const findBranchByName = async (branchName) => {
   try {
-    const formattedBranchName = formatBranchName(branchName);
-    const branchList = await lokaliseApi.branches.list({ project_id: projectId });
+    const formattedBranchName = utils_formatBranchName(branchName);
+    const branchList = await src_lokaliseApi.branches.list({ project_id: projectId });
     const foundBranch = branchList.find((element) => element.name === formattedBranchName);
     return foundBranch;
   } catch (error) {
@@ -48,13 +36,34 @@ const findByName = async (branchName) => {
   }
 };
 
-const merge = async ({ branchNameToMerge, targeBranchName, throwBranchNotExistError = false }) => {
+/* harmony default export */ const actions_findBranchByName = (findBranchByName);
+// CONCATENATED MODULE: ./src/actions/createBranch.js
+
+
+
+const createBranch = async (branchName) => {
+  const formattedBranchName = utils_formatBranchName(branchName);
+  return await src_lokaliseApi.branches.create(
+    { name: formattedBranchName },
+    { project_id: projectId }
+  );
+};
+
+/* harmony default export */ const actions_createBranch = (createBranch);
+// CONCATENATED MODULE: ./src/actions/mergeBranch.js
+
+
+
+const mergeBranch = async ({
+  branchNameToMerge,
+  targeBranchName,
+  throwBranchNotExistError = false,
+}) => {
   let headBranch, baseBranch;
+
   try {
-    headBranch = await findByName(formatBranchName(branchNameToMerge));
-    console.log('headBranch: ', headBranch);
-    baseBranch = await findByName(formatBranchName(targeBranchName));
-    console.log('baseBranch: ', baseBranch);
+    headBranch = await actions_findBranchByName(branchNameToMerge);
+    baseBranch = await actions_findBranchByName(targeBranchName);
 
     if (!headBranch || !baseBranch) {
       if (!headBranch) {
@@ -77,7 +86,7 @@ const merge = async ({ branchNameToMerge, targeBranchName, throwBranchNotExistEr
 
       return null;
     }
-    return await lokaliseApi.branches.merge(
+    return await src_lokaliseApi.branches.merge(
       headBranch.branch_id,
       { project_id: projectId },
       { target_branch_id: baseBranch.branch_id }
@@ -102,16 +111,22 @@ const merge = async ({ branchNameToMerge, targeBranchName, throwBranchNotExistEr
   }
 };
 
-const createAndBackport = async ({
+/* harmony default export */ const actions_mergeBranch = (mergeBranch);
+
+// CONCATENATED MODULE: ./src/actions/createBranchAndBackport.js
+
+
+
+const createBranchAndBackport = async ({
   branchNameToCreate,
   branchNameToBackport,
   throwBranchNotExistError,
 }) => {
   try {
-    const createdResult = await create(branchNameToCreate);
+    const createdResult = await actions_createBranch(branchNameToCreate);
     console.log('create: ', createdResult);
 
-    return await merge({
+    return await actions_mergeBranch({
       branchNameToMerge: branchNameToBackport,
       targeBranchName: branchNameToCreate,
       throwBranchNotExistError,
@@ -121,51 +136,74 @@ const createAndBackport = async ({
   }
 };
 
+/* harmony default export */ const actions_createBranchAndBackport = (createBranchAndBackport);
+// CONCATENATED MODULE: ./src/actions/index.js
+
+
+
+
+
+// CONCATENATED MODULE: ./index.js
+const index_core = __webpack_require__(2559);
+
+
+
+// get inputs which defined in action metadata file
+const index_projectId = index_core.getInput('projectId');
+const index_apiKey = index_core.getInput('apiKey');
+const actionType = index_core.getInput('actionType');
+const actionPayload = JSON.parse(index_core.getInput('actionPayload'));
+
+console.log('projectId: ', index_projectId);
+console.log('actionType: ', actionType);
+console.log('actionPayload: ', actionPayload);
+
+const setProjectNameToOutputs = async () => {
+  const project = await src_lokaliseApi.projects.get(index_projectId);
+  console.log('project: ', project);
+  index_core.setOutput('projectName', project.name);
+};
+
 const actionTypeHandler = async () => {
   try {
     let result;
 
     switch (actionType) {
       case 'findByName':
-        const foundBranchResult = await findByName(actionPayload.branchNameToFind);
+        const foundBranchResult = await actions_findBranchByName(actionPayload.branchNameToFind);
         result = foundBranchResult;
         break;
 
       case 'create':
-        const createdResult = await create(actionPayload.branchNameToCreate);
+        const createdResult = await actions_createBranch(actionPayload.branchNameToCreate);
         result = createdResult;
         break;
 
       case 'merge':
-        const mergedResult = await merge(actionPayload);
+        const mergedResult = await actions_mergeBranch(actionPayload);
         result = mergedResult;
         break;
 
       case 'createAndBackport':
-        const createAndBackportResult = await createAndBackport(actionPayload);
+        const createAndBackportResult = await actions_createBranchAndBackport(actionPayload);
         result = createAndBackportResult;
         break;
     }
 
     console.log('result: ', result);
-    core.setOutput('result', JSON.stringify(result));
-    // Get the JSON webhook payload for the event that triggered the workflow
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`)
+    index_core.setOutput('result', JSON.stringify(result));
   } catch (error) {
     console.log('error: ', error.message);
-    core.setFailed(error.message);
+    index_core.setFailed(error.message);
   }
 };
-
 
 const main = async () => {
   await setProjectNameToOutputs();
   await actionTypeHandler();
-}
+};
 
 main();
-
 
 
 /***/ }),
@@ -9625,12 +9663,23 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	__webpack_require__.ab = __dirname + "/";/************************************************************************/
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(1441);
+/******/ 	return __webpack_require__(5923);
 /******/ })()
 ;
