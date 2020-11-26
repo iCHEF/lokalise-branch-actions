@@ -1,5 +1,7 @@
+const core = require('@actions/core');
 import lokaliseApi from '../lokaliseApi';
 import formatBranchName from '../utils/formatBranchName';
+const projectId = core.getInput('projectId');
 
 const findBranchByName = async (branchName) => {
   try {

@@ -1,5 +1,8 @@
+const core = require('@actions/core');
 import lokaliseApi from '../lokaliseApi';
 import findBranchByName from './findBranchByName';
+
+const projectId = core.getInput('projectId');
 
 const mergeBranch = async ({
   branchNameToMerge,
