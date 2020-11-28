@@ -1,8 +1,8 @@
-import core from '@actions/core';
-import lokaliseApi from '../lokaliseApi';
-import findBranchByName from './findBranchByName';
+import core from "@actions/core";
+import lokaliseApi from "../lokaliseApi";
+import findBranchByName from "./findBranchByName";
 
-const projectId = core.getInput('projectId');
+const projectId = core.getInput("projectId");
 
 const mergeBranch = async ({
   branchNameToMerge,
@@ -44,11 +44,11 @@ const mergeBranch = async ({
   } catch (error) {
     const pullRequestUrl = `https://app.lokalise.com/merge/${projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`;
 
-    console.log('Merge error: ', error);
-    console.log('Pull request url: ', pullRequestUrl);
+    console.log("Merge error: ", error);
+    console.log("Pull request url: ", pullRequestUrl);
 
     core.setOutput(
-      'error',
+      "error",
       JSON.stringify({
         error,
         data: {

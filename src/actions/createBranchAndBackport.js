@@ -1,5 +1,5 @@
-import createBranch from './createBranch';
-import mergeBranch from './mergeBranch';
+import createBranch from "./createBranch";
+import mergeBranch from "./mergeBranch";
 
 const createBranchAndBackport = async ({
   branchNameToCreate,
@@ -8,7 +8,7 @@ const createBranchAndBackport = async ({
 }) => {
   try {
     const createdResult = await createBranch(branchNameToCreate);
-    console.log('create: ', createdResult);
+    console.log("create: ", createdResult);
 
     return await mergeBranch({
       branchNameToMerge: branchNameToBackport,

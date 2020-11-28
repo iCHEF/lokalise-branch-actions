@@ -1,7 +1,7 @@
-import core from '@actions/core';
-import lokaliseApi from '../lokaliseApi';
-import formatBranchName from '../utils/formatBranchName';
-const projectId = core.getInput('projectId');
+import core from "@actions/core";
+import lokaliseApi from "../lokaliseApi";
+import formatBranchName from "../utils/formatBranchName";
+const projectId = core.getInput("projectId");
 
 const createBranch = async (branchName) => {
   const formattedBranchName = formatBranchName(branchName);
