@@ -2,19 +2,33 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 5923:
+/***/ 2661:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"name\":\"@lokalise/node-api\",\"version\":\"5.2.0\",\"description\":\"Official Lokalise API 2.0 Node.js client\",\"license\":\"BSD-3-Clause\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/lokalise/node-lokalise-api.git\"},\"keywords\":[\"api\",\"node\",\"typescript\",\"lokalise\",\"client\",\"client library\"],\"scripts\":{\"build\":\"tsc\",\"test\":\"tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 10000\"},\"devDependencies\":{\"@istanbuljs/nyc-config-typescript\":\"^1.0.1\",\"@types/chai\":\"^4.2.12\",\"@types/mocha\":\"^8.0.3\",\"@types/node\":\"^14.11.2\",\"@typescript-eslint/eslint-plugin\":\"^4.3.0\",\"@typescript-eslint/parser\":\"^4.3.0\",\"acorn\":\"^8.0.3\",\"chai\":\"^4.2.0\",\"codecov\":\"^3.7.2\",\"dotenv\":\"^8.2.0\",\"eslint\":\"^7.10.0\",\"eslint-config-prettier\":\"^6.12.0\",\"eslint-plugin-node\":\"^11.1.0\",\"eslint-plugin-prettier\":\"^3.1.4\",\"mocha\":\"^8.1.3\",\"mocha-cassettes\":\"1.2.0\",\"nyc\":\"^15.1\",\"prettier\":\"2.1.2\",\"source-map-support\":\"^0.5.19\",\"ts-node\":\"^9.0.0\"},\"dependencies\":{\"got\":\"^11.7.0\",\"typescript\":\"^4.0.3\"},\"bugs\":{\"url\":\"https://github.com/lokalise/node-lokalise-api/issues\"},\"homepage\":\"https://lokalise.github.io/node-lokalise-api\",\"main\":\"./index.js\",\"typings\":\"./index.d.ts\",\"directories\":{\"lib\":\"./src\",\"test\":\"./test\"},\"author\":\"Lokalise group, Ilya Bodrov\",\"engines\":{\"node\":\">=10\"}}");
+
+/***/ }),
+
+/***/ 1731:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./src/lokaliseApi.js
-const core = __webpack_require__(2559);
-const { LokaliseApi } = __webpack_require__(4150);
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __webpack_require__(2186);
+var core_default = /*#__PURE__*/__webpack_require__.n(core);
 
-const apiKey = core.getInput('apiKey');
-const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
+// EXTERNAL MODULE: ./node_modules/@lokalise/node-api/index.js
+var node_api = __webpack_require__(5919);
+// CONCATENATED MODULE: ./src/lokaliseApi.js
+
+
+
+const apiKey = core_default().getInput('apiKey');
+const lokaliseApi = new node_api.LokaliseApi({ apiKey: apiKey });
 
 /* harmony default export */ const src_lokaliseApi = (lokaliseApi);
 // CONCATENATED MODULE: ./src/utils/formatBranchName.js
@@ -22,10 +36,10 @@ const formatBranchName = (name) => name.replace(/\./g, '_');
 
 /* harmony default export */ const utils_formatBranchName = (formatBranchName);
 // CONCATENATED MODULE: ./src/actions/findBranchByName.js
-const findBranchByName_core = __webpack_require__(2559);
 
 
-const projectId = findBranchByName_core.getInput('projectId');
+
+const projectId = core_default().getInput('projectId');
 
 const findBranchByName = async (branchName) => {
   try {
@@ -40,10 +54,10 @@ const findBranchByName = async (branchName) => {
 
 /* harmony default export */ const actions_findBranchByName = (findBranchByName);
 // CONCATENATED MODULE: ./src/actions/createBranch.js
-const createBranch_core = __webpack_require__(2559);
 
 
-const createBranch_projectId = createBranch_core.getInput('projectId');
+
+const createBranch_projectId = core_default().getInput('projectId');
 
 const createBranch = async (branchName) => {
   const formattedBranchName = utils_formatBranchName(branchName);
@@ -55,11 +69,11 @@ const createBranch = async (branchName) => {
 
 /* harmony default export */ const actions_createBranch = (createBranch);
 // CONCATENATED MODULE: ./src/actions/mergeBranch.js
-const mergeBranch_core = __webpack_require__(2559);
 
 
 
-const mergeBranch_projectId = mergeBranch_core.getInput('projectId');
+
+const mergeBranch_projectId = core_default().getInput('projectId');
 
 const mergeBranch = async ({
   branchNameToMerge,
@@ -104,7 +118,7 @@ const mergeBranch = async ({
     console.log('Merge error: ', error);
     console.log('Pull request url: ', pullRequestUrl);
 
-    mergeBranch_core.setOutput(
+    core_default().setOutput(
       'error',
       JSON.stringify({
         error,
@@ -151,15 +165,15 @@ const createBranchAndBackport = async ({
 
 
 // CONCATENATED MODULE: ./index.js
-const index_core = __webpack_require__(2559);
+
 
 
 
 // get inputs which defined in action metadata file
-const index_projectId = index_core.getInput('projectId');
-const index_apiKey = index_core.getInput('apiKey');
-const actionType = index_core.getInput('actionType');
-const actionPayload = JSON.parse(index_core.getInput('actionPayload'));
+const index_projectId = core_default().getInput('projectId');
+const index_apiKey = core_default().getInput('apiKey');
+const actionType = core_default().getInput('actionType');
+const actionPayload = JSON.parse(core_default().getInput('actionPayload'));
 
 console.log('projectId: ', index_projectId);
 console.log('actionType: ', actionType);
@@ -168,7 +182,7 @@ console.log('actionPayload: ', actionPayload);
 const setProjectNameToOutputs = async () => {
   const project = await src_lokaliseApi.projects.get(index_projectId);
   console.log('project: ', project);
-  index_core.setOutput('projectName', project.name);
+  core_default().setOutput('projectName', project.name);
 };
 
 const actionTypeHandler = async () => {
@@ -198,10 +212,10 @@ const actionTypeHandler = async () => {
     }
 
     console.log('result: ', result);
-    index_core.setOutput('result', JSON.stringify(result));
+    core_default().setOutput('result', JSON.stringify(result));
   } catch (error) {
     console.log('error: ', error.message);
-    index_core.setFailed(error.message);
+    core_default().setFailed(error.message);
   }
 };
 
@@ -215,7 +229,7 @@ main();
 
 /***/ }),
 
-/***/ 9117:
+/***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -229,7 +243,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const os = __importStar(__webpack_require__(2087));
-const utils_1 = __webpack_require__(9046);
+const utils_1 = __webpack_require__(5278);
 /**
  * Commands
  *
@@ -301,7 +315,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 2559:
+/***/ 2186:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -323,9 +337,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const command_1 = __webpack_require__(9117);
-const file_command_1 = __webpack_require__(2028);
-const utils_1 = __webpack_require__(9046);
+const command_1 = __webpack_require__(7351);
+const file_command_1 = __webpack_require__(717);
+const utils_1 = __webpack_require__(5278);
 const os = __importStar(__webpack_require__(2087));
 const path = __importStar(__webpack_require__(5622));
 /**
@@ -546,7 +560,7 @@ exports.getState = getState;
 
 /***/ }),
 
-/***/ 2028:
+/***/ 717:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -564,7 +578,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__webpack_require__(5747));
 const os = __importStar(__webpack_require__(2087));
-const utils_1 = __webpack_require__(9046);
+const utils_1 = __webpack_require__(5278);
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -582,7 +596,7 @@ exports.issueCommand = issueCommand;
 
 /***/ }),
 
-/***/ 9046:
+/***/ 5278:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -608,14 +622,14 @@ exports.toCommandValue = toCommandValue;
 
 /***/ }),
 
-/***/ 3357:
+/***/ 7059:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BaseCollection = void 0;
-const base_1 = __webpack_require__(5143);
+const base_1 = __webpack_require__(3552);
 class BaseCollection {
     constructor() {
         // Workaround for handling HTTP header pagination params
@@ -726,15 +740,15 @@ BaseCollection.secondaryElementClass = null;
 
 /***/ }),
 
-/***/ 2523:
+/***/ 7820:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Branches = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const branch_1 = __webpack_require__(2177);
+const base_collection_1 = __webpack_require__(7059);
+const branch_1 = __webpack_require__(3330);
 class Branches extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
@@ -757,15 +771,15 @@ Branches.elementClass = branch_1.Branch;
 
 /***/ }),
 
-/***/ 7678:
+/***/ 706:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Comments = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const comment_1 = __webpack_require__(3284);
+const base_collection_1 = __webpack_require__(7059);
+const comment_1 = __webpack_require__(589);
 class Comments extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
@@ -783,15 +797,15 @@ Comments.elementClass = comment_1.Comment;
 
 /***/ }),
 
-/***/ 8389:
+/***/ 1668:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Contributors = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const contributor_1 = __webpack_require__(7680);
+const base_collection_1 = __webpack_require__(7059);
+const contributor_1 = __webpack_require__(7104);
 class Contributors extends base_collection_1.BaseCollection {
     create(raw_body, params) {
         const body = { contributors: raw_body };
@@ -811,16 +825,16 @@ Contributors.elementClass = contributor_1.Contributor;
 
 /***/ }),
 
-/***/ 3045:
+/***/ 1518:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Files = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const file_1 = __webpack_require__(4182);
-const queued_process_1 = __webpack_require__(8692);
+const base_collection_1 = __webpack_require__(7059);
+const file_1 = __webpack_require__(5896);
+const queued_process_1 = __webpack_require__(3048);
 class Files extends base_collection_1.BaseCollection {
     upload(project_id, upload) {
         return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
@@ -839,66 +853,66 @@ Files.secondaryElementClass = queued_process_1.QueuedProcess;
 
 /***/ }),
 
-/***/ 7048:
+/***/ 4134:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Webhooks = exports.UserGroups = exports.TranslationStatuses = exports.TranslationProviders = exports.Translations = exports.Teams = exports.TeamUsers = exports.Tasks = exports.Snapshots = exports.Screenshots = exports.QueuedProcesses = exports.Projects = exports.PaymentCards = exports.Orders = exports.Languages = exports.Keys = exports.Files = exports.Contributors = exports.Comments = exports.Branches = void 0;
-const branches_1 = __webpack_require__(2523);
+const branches_1 = __webpack_require__(7820);
 Object.defineProperty(exports, "Branches", ({ enumerable: true, get: function () { return branches_1.Branches; } }));
-const comments_1 = __webpack_require__(7678);
+const comments_1 = __webpack_require__(706);
 Object.defineProperty(exports, "Comments", ({ enumerable: true, get: function () { return comments_1.Comments; } }));
-const contributors_1 = __webpack_require__(8389);
+const contributors_1 = __webpack_require__(1668);
 Object.defineProperty(exports, "Contributors", ({ enumerable: true, get: function () { return contributors_1.Contributors; } }));
-const files_1 = __webpack_require__(3045);
+const files_1 = __webpack_require__(1518);
 Object.defineProperty(exports, "Files", ({ enumerable: true, get: function () { return files_1.Files; } }));
-const keys_1 = __webpack_require__(7674);
+const keys_1 = __webpack_require__(9124);
 Object.defineProperty(exports, "Keys", ({ enumerable: true, get: function () { return keys_1.Keys; } }));
-const languages_1 = __webpack_require__(6014);
+const languages_1 = __webpack_require__(4288);
 Object.defineProperty(exports, "Languages", ({ enumerable: true, get: function () { return languages_1.Languages; } }));
-const orders_1 = __webpack_require__(5053);
+const orders_1 = __webpack_require__(5350);
 Object.defineProperty(exports, "Orders", ({ enumerable: true, get: function () { return orders_1.Orders; } }));
-const payment_cards_1 = __webpack_require__(4862);
+const payment_cards_1 = __webpack_require__(2764);
 Object.defineProperty(exports, "PaymentCards", ({ enumerable: true, get: function () { return payment_cards_1.PaymentCards; } }));
-const projects_1 = __webpack_require__(2979);
+const projects_1 = __webpack_require__(6761);
 Object.defineProperty(exports, "Projects", ({ enumerable: true, get: function () { return projects_1.Projects; } }));
-const queued_processes_1 = __webpack_require__(9431);
+const queued_processes_1 = __webpack_require__(3627);
 Object.defineProperty(exports, "QueuedProcesses", ({ enumerable: true, get: function () { return queued_processes_1.QueuedProcesses; } }));
-const screenshots_1 = __webpack_require__(1094);
+const screenshots_1 = __webpack_require__(757);
 Object.defineProperty(exports, "Screenshots", ({ enumerable: true, get: function () { return screenshots_1.Screenshots; } }));
-const snapshots_1 = __webpack_require__(2901);
+const snapshots_1 = __webpack_require__(3979);
 Object.defineProperty(exports, "Snapshots", ({ enumerable: true, get: function () { return snapshots_1.Snapshots; } }));
-const tasks_1 = __webpack_require__(617);
+const tasks_1 = __webpack_require__(834);
 Object.defineProperty(exports, "Tasks", ({ enumerable: true, get: function () { return tasks_1.Tasks; } }));
-const teams_1 = __webpack_require__(2508);
+const teams_1 = __webpack_require__(2494);
 Object.defineProperty(exports, "Teams", ({ enumerable: true, get: function () { return teams_1.Teams; } }));
-const team_users_1 = __webpack_require__(9856);
+const team_users_1 = __webpack_require__(5076);
 Object.defineProperty(exports, "TeamUsers", ({ enumerable: true, get: function () { return team_users_1.TeamUsers; } }));
-const translations_1 = __webpack_require__(7050);
+const translations_1 = __webpack_require__(2678);
 Object.defineProperty(exports, "Translations", ({ enumerable: true, get: function () { return translations_1.Translations; } }));
-const translation_providers_1 = __webpack_require__(9604);
+const translation_providers_1 = __webpack_require__(6766);
 Object.defineProperty(exports, "TranslationProviders", ({ enumerable: true, get: function () { return translation_providers_1.TranslationProviders; } }));
-const translation_statuses_1 = __webpack_require__(7747);
+const translation_statuses_1 = __webpack_require__(209);
 Object.defineProperty(exports, "TranslationStatuses", ({ enumerable: true, get: function () { return translation_statuses_1.TranslationStatuses; } }));
-const user_groups_1 = __webpack_require__(7170);
+const user_groups_1 = __webpack_require__(7548);
 Object.defineProperty(exports, "UserGroups", ({ enumerable: true, get: function () { return user_groups_1.UserGroups; } }));
-const webhooks_1 = __webpack_require__(1231);
+const webhooks_1 = __webpack_require__(8529);
 Object.defineProperty(exports, "Webhooks", ({ enumerable: true, get: function () { return webhooks_1.Webhooks; } }));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ 7674:
+/***/ 9124:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Keys = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const key_1 = __webpack_require__(5963);
+const base_collection_1 = __webpack_require__(7059);
+const key_1 = __webpack_require__(800);
 class Keys extends base_collection_1.BaseCollection {
     create(raw_body, params) {
         const body = { keys: raw_body };
@@ -926,15 +940,15 @@ Keys.elementClass = key_1.Key;
 
 /***/ }),
 
-/***/ 6014:
+/***/ 4288:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Languages = void 0;
-const language_1 = __webpack_require__(2186);
-const base_collection_1 = __webpack_require__(3357);
+const language_1 = __webpack_require__(4441);
+const base_collection_1 = __webpack_require__(7059);
 class Languages extends base_collection_1.BaseCollection {
     system_languages(params) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "system/languages");
@@ -957,15 +971,15 @@ Languages.elementClass = language_1.Language;
 
 /***/ }),
 
-/***/ 5053:
+/***/ 5350:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Orders = void 0;
-const order_1 = __webpack_require__(9505);
-const base_collection_1 = __webpack_require__(3357);
+const order_1 = __webpack_require__(4316);
+const base_collection_1 = __webpack_require__(7059);
 class Orders extends base_collection_1.BaseCollection {
 }
 exports.Orders = Orders;
@@ -976,15 +990,15 @@ Orders.elementClass = order_1.Order;
 
 /***/ }),
 
-/***/ 4862:
+/***/ 2764:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PaymentCards = void 0;
-const payment_card_1 = __webpack_require__(6240);
-const base_collection_1 = __webpack_require__(3357);
+const payment_card_1 = __webpack_require__(5873);
+const base_collection_1 = __webpack_require__(7059);
 class PaymentCards extends base_collection_1.BaseCollection {
 }
 exports.PaymentCards = PaymentCards;
@@ -996,15 +1010,15 @@ PaymentCards.elementClass = payment_card_1.PaymentCard;
 
 /***/ }),
 
-/***/ 2979:
+/***/ 6761:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Projects = void 0;
-const project_1 = __webpack_require__(266);
-const base_collection_1 = __webpack_require__(3357);
+const project_1 = __webpack_require__(6664);
+const base_collection_1 = __webpack_require__(7059);
 class Projects extends base_collection_1.BaseCollection {
     empty(project_id) {
         return this.createPromise("PUT", { project_id: project_id }, this.populateObjectFromJson, this.handleReject, null, "projects/{!:project_id}/empty");
@@ -1018,15 +1032,15 @@ Projects.elementClass = project_1.Project;
 
 /***/ }),
 
-/***/ 9431:
+/***/ 3627:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QueuedProcesses = void 0;
-const queued_process_1 = __webpack_require__(8692);
-const base_collection_1 = __webpack_require__(3357);
+const queued_process_1 = __webpack_require__(3048);
+const base_collection_1 = __webpack_require__(7059);
 class QueuedProcesses extends base_collection_1.BaseCollection {
 }
 exports.QueuedProcesses = QueuedProcesses;
@@ -1038,15 +1052,15 @@ QueuedProcesses.elementClass = queued_process_1.QueuedProcess;
 
 /***/ }),
 
-/***/ 1094:
+/***/ 757:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Screenshots = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const screenshot_1 = __webpack_require__(905);
+const base_collection_1 = __webpack_require__(7059);
+const screenshot_1 = __webpack_require__(3827);
 class Screenshots extends base_collection_1.BaseCollection {
     create(raw_body, params) {
         const body = { screenshots: raw_body };
@@ -1066,15 +1080,15 @@ Screenshots.elementClass = screenshot_1.Screenshot;
 
 /***/ }),
 
-/***/ 2901:
+/***/ 3979:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Snapshots = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const snapshot_1 = __webpack_require__(6394);
+const base_collection_1 = __webpack_require__(7059);
+const snapshot_1 = __webpack_require__(7238);
 class Snapshots extends base_collection_1.BaseCollection {
     restore(id, params) {
         params["id"] = id;
@@ -1093,15 +1107,15 @@ Snapshots.elementClass = snapshot_1.Snapshot;
 
 /***/ }),
 
-/***/ 617:
+/***/ 834:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Tasks = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const task_1 = __webpack_require__(915);
+const base_collection_1 = __webpack_require__(7059);
+const task_1 = __webpack_require__(6753);
 class Tasks extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
@@ -1120,15 +1134,15 @@ Tasks.elementClass = task_1.Task;
 
 /***/ }),
 
-/***/ 9856:
+/***/ 5076:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TeamUsers = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const team_user_1 = __webpack_require__(1347);
+const base_collection_1 = __webpack_require__(7059);
+const team_user_1 = __webpack_require__(1466);
 class TeamUsers extends base_collection_1.BaseCollection {
     update(id, body, params) {
         params["id"] = id;
@@ -1144,15 +1158,15 @@ TeamUsers.elementClass = team_user_1.TeamUser;
 
 /***/ }),
 
-/***/ 2508:
+/***/ 2494:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Teams = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const team_1 = __webpack_require__(613);
+const base_collection_1 = __webpack_require__(7059);
+const team_1 = __webpack_require__(7778);
 class Teams extends base_collection_1.BaseCollection {
 }
 exports.Teams = Teams;
@@ -1163,15 +1177,15 @@ Teams.elementClass = team_1.Team;
 
 /***/ }),
 
-/***/ 9604:
+/***/ 6766:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TranslationProviders = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const translation_provider_1 = __webpack_require__(424);
+const base_collection_1 = __webpack_require__(7059);
+const translation_provider_1 = __webpack_require__(9884);
 class TranslationProviders extends base_collection_1.BaseCollection {
 }
 exports.TranslationProviders = TranslationProviders;
@@ -1182,15 +1196,15 @@ TranslationProviders.elementClass = translation_provider_1.TranslationProvider;
 
 /***/ }),
 
-/***/ 7747:
+/***/ 209:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TranslationStatuses = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const translation_status_1 = __webpack_require__(7480);
+const base_collection_1 = __webpack_require__(7059);
+const translation_status_1 = __webpack_require__(4205);
 class TranslationStatuses extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
@@ -1212,15 +1226,15 @@ TranslationStatuses.rootElementNameSingular = "custom_translation_status";
 
 /***/ }),
 
-/***/ 7050:
+/***/ 2678:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Translations = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const translation_1 = __webpack_require__(1871);
+const base_collection_1 = __webpack_require__(7059);
+const translation_1 = __webpack_require__(7805);
 class Translations extends base_collection_1.BaseCollection {
     update(id, body, params) {
         params["id"] = id;
@@ -1236,15 +1250,15 @@ Translations.elementClass = translation_1.Translation;
 
 /***/ }),
 
-/***/ 7170:
+/***/ 7548:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserGroups = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const user_group_1 = __webpack_require__(1518);
+const base_collection_1 = __webpack_require__(7059);
+const user_group_1 = __webpack_require__(790);
 class UserGroups extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateGroupFromJsonRoot, this.handleReject, body);
@@ -1290,15 +1304,15 @@ UserGroups.elementClass = user_group_1.UserGroup;
 
 /***/ }),
 
-/***/ 1231:
+/***/ 8529:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Webhooks = void 0;
-const base_collection_1 = __webpack_require__(3357);
-const webhook_1 = __webpack_require__(2142);
+const base_collection_1 = __webpack_require__(7059);
+const webhook_1 = __webpack_require__(2587);
 class Webhooks extends base_collection_1.BaseCollection {
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
@@ -1321,16 +1335,16 @@ Webhooks.elementClass = webhook_1.Webhook;
 
 /***/ }),
 
-/***/ 5143:
+/***/ 3552:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiRequest = void 0;
-const got = __webpack_require__(6375);
+const got = __webpack_require__(3061);
 const pkg = __webpack_require__(2661);
-const lokalise_1 = __webpack_require__(6143);
+const lokalise_1 = __webpack_require__(1660);
 class ApiRequest {
     /* istanbul ignore next */
     constructor(uri, method, body = null, params = {}) {
@@ -1415,14 +1429,14 @@ exports.ApiRequest = ApiRequest;
 
 /***/ }),
 
-/***/ 4188:
+/***/ 7794:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocaliseApiMethods = void 0;
-const Collections = __webpack_require__(7048);
+const Collections = __webpack_require__(4134);
 class LocaliseApiMethods {
     constructor() {
         // TODO: Lazy loading
@@ -1453,14 +1467,14 @@ exports.LocaliseApiMethods = LocaliseApiMethods;
 
 /***/ }),
 
-/***/ 6143:
+/***/ 1660:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LokaliseApi = void 0;
-const api_methods_1 = __webpack_require__(4188);
+const api_methods_1 = __webpack_require__(7794);
 class LokaliseApi extends api_methods_1.LocaliseApiMethods {
     /**
      * Instantiate LokaliseApi to have access to methods
@@ -1482,20 +1496,21 @@ LokaliseApi.apiKey = null;
 
 /***/ }),
 
-/***/ 1563:
+/***/ 1765:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
+var __webpack_unused_export__;
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
+__webpack_unused_export__ = ({ value: true });
 exports.LokaliseApi = void 0;
-const lokalise_1 = __webpack_require__(6143);
+const lokalise_1 = __webpack_require__(1660);
 Object.defineProperty(exports, "LokaliseApi", ({ enumerable: true, get: function () { return lokalise_1.LokaliseApi; } }));
 //# sourceMappingURL=main.js.map
 
 /***/ }),
 
-/***/ 6535:
+/***/ 8283:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -1514,14 +1529,14 @@ exports.BaseModel = BaseModel;
 
 /***/ }),
 
-/***/ 2177:
+/***/ 3330:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Branch = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Branch extends base_model_1.BaseModel {
 }
 exports.Branch = Branch;
@@ -1529,14 +1544,14 @@ exports.Branch = Branch;
 
 /***/ }),
 
-/***/ 3284:
+/***/ 589:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Comment = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Comment extends base_model_1.BaseModel {
 }
 exports.Comment = Comment;
@@ -1544,14 +1559,14 @@ exports.Comment = Comment;
 
 /***/ }),
 
-/***/ 7680:
+/***/ 7104:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Contributor = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Contributor extends base_model_1.BaseModel {
 }
 exports.Contributor = Contributor;
@@ -1559,14 +1574,14 @@ exports.Contributor = Contributor;
 
 /***/ }),
 
-/***/ 4182:
+/***/ 5896:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.File = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class File extends base_model_1.BaseModel {
 }
 exports.File = File;
@@ -1574,14 +1589,14 @@ exports.File = File;
 
 /***/ }),
 
-/***/ 5963:
+/***/ 800:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Key = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Key extends base_model_1.BaseModel {
 }
 exports.Key = Key;
@@ -1589,14 +1604,14 @@ exports.Key = Key;
 
 /***/ }),
 
-/***/ 2186:
+/***/ 4441:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Language = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Language extends base_model_1.BaseModel {
 }
 exports.Language = Language;
@@ -1604,14 +1619,14 @@ exports.Language = Language;
 
 /***/ }),
 
-/***/ 9505:
+/***/ 4316:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Order = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Order extends base_model_1.BaseModel {
 }
 exports.Order = Order;
@@ -1619,14 +1634,14 @@ exports.Order = Order;
 
 /***/ }),
 
-/***/ 6240:
+/***/ 5873:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PaymentCard = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class PaymentCard extends base_model_1.BaseModel {
 }
 exports.PaymentCard = PaymentCard;
@@ -1634,14 +1649,14 @@ exports.PaymentCard = PaymentCard;
 
 /***/ }),
 
-/***/ 266:
+/***/ 6664:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Project = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Project extends base_model_1.BaseModel {
 }
 exports.Project = Project;
@@ -1649,14 +1664,14 @@ exports.Project = Project;
 
 /***/ }),
 
-/***/ 8692:
+/***/ 3048:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QueuedProcess = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class QueuedProcess extends base_model_1.BaseModel {
 }
 exports.QueuedProcess = QueuedProcess;
@@ -1664,14 +1679,14 @@ exports.QueuedProcess = QueuedProcess;
 
 /***/ }),
 
-/***/ 905:
+/***/ 3827:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Screenshot = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Screenshot extends base_model_1.BaseModel {
 }
 exports.Screenshot = Screenshot;
@@ -1679,14 +1694,14 @@ exports.Screenshot = Screenshot;
 
 /***/ }),
 
-/***/ 6394:
+/***/ 7238:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Snapshot = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Snapshot extends base_model_1.BaseModel {
 }
 exports.Snapshot = Snapshot;
@@ -1694,14 +1709,14 @@ exports.Snapshot = Snapshot;
 
 /***/ }),
 
-/***/ 915:
+/***/ 6753:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Task = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Task extends base_model_1.BaseModel {
 }
 exports.Task = Task;
@@ -1709,14 +1724,14 @@ exports.Task = Task;
 
 /***/ }),
 
-/***/ 613:
+/***/ 7778:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Team = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Team extends base_model_1.BaseModel {
 }
 exports.Team = Team;
@@ -1724,14 +1739,14 @@ exports.Team = Team;
 
 /***/ }),
 
-/***/ 1347:
+/***/ 1466:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TeamUser = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class TeamUser extends base_model_1.BaseModel {
 }
 exports.TeamUser = TeamUser;
@@ -1739,14 +1754,14 @@ exports.TeamUser = TeamUser;
 
 /***/ }),
 
-/***/ 1871:
+/***/ 7805:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Translation = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Translation extends base_model_1.BaseModel {
 }
 exports.Translation = Translation;
@@ -1754,14 +1769,14 @@ exports.Translation = Translation;
 
 /***/ }),
 
-/***/ 424:
+/***/ 9884:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TranslationProvider = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class TranslationProvider extends base_model_1.BaseModel {
 }
 exports.TranslationProvider = TranslationProvider;
@@ -1769,14 +1784,14 @@ exports.TranslationProvider = TranslationProvider;
 
 /***/ }),
 
-/***/ 7480:
+/***/ 4205:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TranslationStatus = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class TranslationStatus extends base_model_1.BaseModel {
 }
 exports.TranslationStatus = TranslationStatus;
@@ -1784,14 +1799,14 @@ exports.TranslationStatus = TranslationStatus;
 
 /***/ }),
 
-/***/ 1518:
+/***/ 790:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserGroup = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class UserGroup extends base_model_1.BaseModel {
 }
 exports.UserGroup = UserGroup;
@@ -1799,14 +1814,14 @@ exports.UserGroup = UserGroup;
 
 /***/ }),
 
-/***/ 2142:
+/***/ 2587:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Webhook = void 0;
-const base_model_1 = __webpack_require__(6535);
+const base_model_1 = __webpack_require__(8283);
 class Webhook extends base_model_1.BaseModel {
 }
 exports.Webhook = Webhook;
@@ -1814,15 +1829,15 @@ exports.Webhook = Webhook;
 
 /***/ }),
 
-/***/ 4150:
+/***/ 5919:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports = __webpack_require__(1563);
+module.exports = __webpack_require__(1765);
 
 
 /***/ }),
 
-/***/ 8330:
+/***/ 7678:
 /***/ ((module, exports) => {
 
 "use strict";
@@ -2240,13 +2255,13 @@ module.exports.assert = exports.assert;
 
 /***/ }),
 
-/***/ 5869:
+/***/ 8097:
 /***/ ((module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const defer_to_connect_1 = __webpack_require__(2908);
+const defer_to_connect_1 = __webpack_require__(6214);
 const nodejsMajorVersion = Number(process.versions.node.split('.')[0]);
 const timer = (request) => {
     const timings = {
@@ -2365,7 +2380,7 @@ module.exports.default = timer;
 
 /***/ }),
 
-/***/ 1865:
+/***/ 2286:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2813,7 +2828,7 @@ module.exports.default = CacheableLookup;
 
 /***/ }),
 
-/***/ 361:
+/***/ 8116:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2821,13 +2836,13 @@ module.exports.default = CacheableLookup;
 
 const EventEmitter = __webpack_require__(8614);
 const urlLib = __webpack_require__(8835);
-const normalizeUrl = __webpack_require__(7077);
-const getStream = __webpack_require__(8579);
-const CachePolicy = __webpack_require__(7578);
-const Response = __webpack_require__(9176);
-const lowercaseKeys = __webpack_require__(2222);
-const cloneResponse = __webpack_require__(8727);
-const Keyv = __webpack_require__(9325);
+const normalizeUrl = __webpack_require__(7952);
+const getStream = __webpack_require__(1766);
+const CachePolicy = __webpack_require__(1002);
+const Response = __webpack_require__(9004);
+const lowercaseKeys = __webpack_require__(9662);
+const cloneResponse = __webpack_require__(1312);
+const Keyv = __webpack_require__(1531);
 
 class CacheableRequest {
 	constructor(request, cacheAdapter) {
@@ -3072,7 +3087,7 @@ module.exports = CacheableRequest;
 
 /***/ }),
 
-/***/ 3932:
+/***/ 9372:
 /***/ ((module) => {
 
 "use strict";
@@ -3112,14 +3127,14 @@ module.exports = (fromStream, toStream) => {
 
 /***/ }),
 
-/***/ 8727:
+/***/ 1312:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 const PassThrough = __webpack_require__(2413).PassThrough;
-const mimicResponse = __webpack_require__(3932);
+const mimicResponse = __webpack_require__(9372);
 
 const cloneResponse = response => {
 	if (!(response && response.pipe)) {
@@ -3137,14 +3152,14 @@ module.exports = cloneResponse;
 
 /***/ }),
 
-/***/ 4756:
+/***/ 2391:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 const {Transform, PassThrough} = __webpack_require__(2413);
 const zlib = __webpack_require__(8761);
-const mimicResponse = __webpack_require__(3277);
+const mimicResponse = __webpack_require__(2610);
 
 module.exports = response => {
 	const contentEncoding = (response.headers['content-encoding'] || '').toLowerCase();
@@ -3203,7 +3218,7 @@ module.exports = response => {
 
 /***/ }),
 
-/***/ 2908:
+/***/ 6214:
 /***/ ((module, exports, __webpack_require__) => {
 
 "use strict";
@@ -3256,10 +3271,10 @@ module.exports.default = deferToConnect;
 
 /***/ }),
 
-/***/ 2534:
+/***/ 1205:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var once = __webpack_require__(447);
+var once = __webpack_require__(1223);
 
 var noop = function() {};
 
@@ -3357,7 +3372,7 @@ module.exports = eos;
 
 /***/ }),
 
-/***/ 5205:
+/***/ 1585:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3417,14 +3432,14 @@ module.exports = options => {
 
 /***/ }),
 
-/***/ 8579:
+/***/ 1766:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 const {constants: BufferConstants} = __webpack_require__(4293);
-const pump = __webpack_require__(5636);
-const bufferStream = __webpack_require__(5205);
+const pump = __webpack_require__(8341);
+const bufferStream = __webpack_require__(1585);
 
 class MaxBufferError extends Error {
 	constructor() {
@@ -3485,13 +3500,13 @@ module.exports.MaxBufferError = MaxBufferError;
 
 /***/ }),
 
-/***/ 3985:
+/***/ 6457:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const types_1 = __webpack_require__(5020);
+const types_1 = __webpack_require__(4597);
 function createRejection(error, ...beforeErrorGroups) {
     const promise = (async () => {
         if (error instanceof types_1.RequestError) {
@@ -3523,7 +3538,7 @@ exports.default = createRejection;
 
 /***/ }),
 
-/***/ 7842:
+/***/ 6056:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -3540,14 +3555,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const events_1 = __webpack_require__(8614);
-const is_1 = __webpack_require__(8330);
-const PCancelable = __webpack_require__(3868);
-const types_1 = __webpack_require__(5020);
-const parse_body_1 = __webpack_require__(7625);
-const core_1 = __webpack_require__(6175);
-const proxy_events_1 = __webpack_require__(4331);
-const get_buffer_1 = __webpack_require__(5489);
-const is_response_ok_1 = __webpack_require__(8479);
+const is_1 = __webpack_require__(7678);
+const PCancelable = __webpack_require__(9072);
+const types_1 = __webpack_require__(4597);
+const parse_body_1 = __webpack_require__(8220);
+const core_1 = __webpack_require__(94);
+const proxy_events_1 = __webpack_require__(3021);
+const get_buffer_1 = __webpack_require__(4500);
+const is_response_ok_1 = __webpack_require__(9298);
 const proxiedRequestEvents = [
     'request',
     'response',
@@ -3701,18 +3716,18 @@ function asPromise(normalizedOptions) {
     return promise;
 }
 exports.default = asPromise;
-__exportStar(__webpack_require__(5020), exports);
+__exportStar(__webpack_require__(4597), exports);
 
 
 /***/ }),
 
-/***/ 1065:
+/***/ 1048:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const is_1 = __webpack_require__(8330);
+const is_1 = __webpack_require__(7678);
 const normalizeArguments = (options, defaults) => {
     if (is_1.default.null_(options.encoding)) {
         throw new TypeError('To get a Buffer, set `options.responseType` to `buffer` instead');
@@ -3792,13 +3807,13 @@ exports.default = normalizeArguments;
 
 /***/ }),
 
-/***/ 7625:
+/***/ 8220:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const types_1 = __webpack_require__(5020);
+const types_1 = __webpack_require__(4597);
 const parseBody = (response, responseType, parseJson, encoding) => {
     const { rawBody } = response;
     try {
@@ -3825,7 +3840,7 @@ exports.default = parseBody;
 
 /***/ }),
 
-/***/ 5020:
+/***/ 4597:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -3842,7 +3857,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CancelError = exports.ParseError = void 0;
-const core_1 = __webpack_require__(6175);
+const core_1 = __webpack_require__(94);
 /**
 An error to be thrown when server response code is 2xx, and parsing body fails.
 Includes a `response` property.
@@ -3868,12 +3883,12 @@ class CancelError extends core_1.RequestError {
     }
 }
 exports.CancelError = CancelError;
-__exportStar(__webpack_require__(6175), exports);
+__exportStar(__webpack_require__(94), exports);
 
 
 /***/ }),
 
-/***/ 7246:
+/***/ 3462:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -3910,7 +3925,7 @@ exports.default = calculateRetryDelay;
 
 /***/ }),
 
-/***/ 6175:
+/***/ 94:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -3924,27 +3939,27 @@ const url_1 = __webpack_require__(8835);
 const http = __webpack_require__(8605);
 const http_1 = __webpack_require__(8605);
 const https = __webpack_require__(7211);
-const http_timer_1 = __webpack_require__(5869);
-const cacheable_lookup_1 = __webpack_require__(1865);
-const CacheableRequest = __webpack_require__(361);
-const decompressResponse = __webpack_require__(4756);
+const http_timer_1 = __webpack_require__(8097);
+const cacheable_lookup_1 = __webpack_require__(2286);
+const CacheableRequest = __webpack_require__(8116);
+const decompressResponse = __webpack_require__(2391);
 // @ts-expect-error Missing types
-const http2wrapper = __webpack_require__(2084);
-const lowercaseKeys = __webpack_require__(2222);
-const is_1 = __webpack_require__(8330);
-const get_body_size_1 = __webpack_require__(8497);
-const is_form_data_1 = __webpack_require__(8213);
-const proxy_events_1 = __webpack_require__(4331);
-const timed_out_1 = __webpack_require__(7741);
-const url_to_options_1 = __webpack_require__(1779);
-const options_to_url_1 = __webpack_require__(7778);
-const weakable_map_1 = __webpack_require__(624);
-const get_buffer_1 = __webpack_require__(5489);
-const dns_ip_version_1 = __webpack_require__(2780);
-const is_response_ok_1 = __webpack_require__(8479);
-const deprecation_warning_1 = __webpack_require__(3979);
-const normalize_arguments_1 = __webpack_require__(1065);
-const calculate_retry_delay_1 = __webpack_require__(7246);
+const http2wrapper = __webpack_require__(4645);
+const lowercaseKeys = __webpack_require__(9662);
+const is_1 = __webpack_require__(7678);
+const get_body_size_1 = __webpack_require__(4564);
+const is_form_data_1 = __webpack_require__(40);
+const proxy_events_1 = __webpack_require__(3021);
+const timed_out_1 = __webpack_require__(2454);
+const url_to_options_1 = __webpack_require__(8026);
+const options_to_url_1 = __webpack_require__(9219);
+const weakable_map_1 = __webpack_require__(7288);
+const get_buffer_1 = __webpack_require__(4500);
+const dns_ip_version_1 = __webpack_require__(4993);
+const is_response_ok_1 = __webpack_require__(9298);
+const deprecation_warning_1 = __webpack_require__(397);
+const normalize_arguments_1 = __webpack_require__(1048);
+const calculate_retry_delay_1 = __webpack_require__(3462);
 const globalDnsCache = new cacheable_lookup_1.default();
 const kRequest = Symbol('request');
 const kResponse = Symbol('response');
@@ -5406,7 +5421,7 @@ exports.default = Request;
 
 /***/ }),
 
-/***/ 2780:
+/***/ 4993:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5431,7 +5446,7 @@ exports.dnsLookupIpVersionToFamily = (dnsLookupIpVersion) => {
 
 /***/ }),
 
-/***/ 8497:
+/***/ 4564:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -5439,8 +5454,8 @@ exports.dnsLookupIpVersionToFamily = (dnsLookupIpVersion) => {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs_1 = __webpack_require__(5747);
 const util_1 = __webpack_require__(1669);
-const is_1 = __webpack_require__(8330);
-const is_form_data_1 = __webpack_require__(8213);
+const is_1 = __webpack_require__(7678);
+const is_form_data_1 = __webpack_require__(40);
 const statAsync = util_1.promisify(fs_1.stat);
 exports.default = async (body, headers) => {
     if (headers && 'content-length' in headers) {
@@ -5471,7 +5486,7 @@ exports.default = async (body, headers) => {
 
 /***/ }),
 
-/***/ 5489:
+/***/ 4500:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5495,19 +5510,19 @@ exports.default = getBuffer;
 
 /***/ }),
 
-/***/ 8213:
+/***/ 40:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const is_1 = __webpack_require__(8330);
+const is_1 = __webpack_require__(7678);
 exports.default = (body) => is_1.default.nodeStream(body) && is_1.default.function_(body.getBoundary);
 
 
 /***/ }),
 
-/***/ 8479:
+/***/ 9298:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5523,7 +5538,7 @@ exports.isResponseOk = (response) => {
 
 /***/ }),
 
-/***/ 7778:
+/***/ 9219:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -5584,7 +5599,7 @@ exports.default = (origin, options) => {
 
 /***/ }),
 
-/***/ 4331:
+/***/ 3021:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5609,7 +5624,7 @@ exports.default = default_1;
 
 /***/ }),
 
-/***/ 7741:
+/***/ 2454:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -5617,7 +5632,7 @@ exports.default = default_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TimeoutError = void 0;
 const net = __webpack_require__(1631);
-const unhandle_1 = __webpack_require__(5308);
+const unhandle_1 = __webpack_require__(1593);
 const reentry = Symbol('reentry');
 const noop = () => { };
 class TimeoutError extends Error {
@@ -5738,7 +5753,7 @@ exports.default = (request, delays, options) => {
 
 /***/ }),
 
-/***/ 5308:
+/***/ 1593:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5768,13 +5783,13 @@ exports.default = () => {
 
 /***/ }),
 
-/***/ 1779:
+/***/ 8026:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const is_1 = __webpack_require__(8330);
+const is_1 = __webpack_require__(7678);
 exports.default = (url) => {
     // Cast to URL
     url = url;
@@ -5800,7 +5815,7 @@ exports.default = (url) => {
 
 /***/ }),
 
-/***/ 624:
+/***/ 7288:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5837,7 +5852,7 @@ exports.default = WeakableMap;
 
 /***/ }),
 
-/***/ 839:
+/***/ 4337:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5854,11 +5869,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.defaultHandler = void 0;
-const is_1 = __webpack_require__(8330);
-const as_promise_1 = __webpack_require__(7842);
-const create_rejection_1 = __webpack_require__(3985);
-const core_1 = __webpack_require__(6175);
-const deep_freeze_1 = __webpack_require__(2156);
+const is_1 = __webpack_require__(7678);
+const as_promise_1 = __webpack_require__(6056);
+const create_rejection_1 = __webpack_require__(6457);
+const core_1 = __webpack_require__(94);
+const deep_freeze_1 = __webpack_require__(285);
 const errors = {
     RequestError: as_promise_1.RequestError,
     CacheError: as_promise_1.CacheError,
@@ -6080,12 +6095,12 @@ const create = (defaults) => {
     return got;
 };
 exports.default = create;
-__exportStar(__webpack_require__(6771), exports);
+__exportStar(__webpack_require__(2613), exports);
 
 
 /***/ }),
 
-/***/ 6375:
+/***/ 3061:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6102,7 +6117,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const url_1 = __webpack_require__(8835);
-const create_1 = __webpack_require__(839);
+const create_1 = __webpack_require__(4337);
 const defaults = {
     options: {
         method: 'GET',
@@ -6219,13 +6234,13 @@ exports.default = got;
 module.exports = got;
 module.exports.default = got;
 module.exports.__esModule = true; // Workaround for TS issue: https://github.com/sindresorhus/got/pull/1267
-__exportStar(__webpack_require__(839), exports);
-__exportStar(__webpack_require__(7842), exports);
+__exportStar(__webpack_require__(4337), exports);
+__exportStar(__webpack_require__(6056), exports);
 
 
 /***/ }),
 
-/***/ 6771:
+/***/ 2613:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -6235,13 +6250,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 
-/***/ 2156:
+/***/ 285:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const is_1 = __webpack_require__(8330);
+const is_1 = __webpack_require__(7678);
 function deepFreeze(object) {
     for (const value of Object.values(object)) {
         if (is_1.default.plainObject(value) || is_1.default.array(value)) {
@@ -6255,7 +6270,7 @@ exports.default = deepFreeze;
 
 /***/ }),
 
-/***/ 3979:
+/***/ 397:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -6276,7 +6291,7 @@ exports.default = (message) => {
 
 /***/ }),
 
-/***/ 7578:
+/***/ 1002:
 /***/ ((module) => {
 
 "use strict";
@@ -6957,7 +6972,7 @@ module.exports = class CachePolicy {
 
 /***/ }),
 
-/***/ 8029:
+/***/ 9898:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -6965,7 +6980,7 @@ module.exports = class CachePolicy {
 const EventEmitter = __webpack_require__(8614);
 const tls = __webpack_require__(4016);
 const http2 = __webpack_require__(7565);
-const QuickLRU = __webpack_require__(2421);
+const QuickLRU = __webpack_require__(9273);
 
 const kCurrentStreamsCount = Symbol('currentStreamsCount');
 const kRequest = Symbol('request');
@@ -7635,18 +7650,18 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3743:
+/***/ 7167:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 const http = __webpack_require__(8605);
 const https = __webpack_require__(7211);
-const resolveALPN = __webpack_require__(9221);
-const QuickLRU = __webpack_require__(2421);
-const Http2ClientRequest = __webpack_require__(7225);
-const calculateServerName = __webpack_require__(3442);
-const urlToOptions = __webpack_require__(193);
+const resolveALPN = __webpack_require__(6624);
+const QuickLRU = __webpack_require__(9273);
+const Http2ClientRequest = __webpack_require__(9632);
+const calculateServerName = __webpack_require__(1982);
+const urlToOptions = __webpack_require__(2686);
 
 const cache = new QuickLRU({maxSize: 100});
 const queue = new Map();
@@ -7792,18 +7807,18 @@ module.exports.protocolCache = cache;
 
 /***/ }),
 
-/***/ 7225:
+/***/ 9632:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 const http2 = __webpack_require__(7565);
 const {Writable} = __webpack_require__(2413);
-const {Agent, globalAgent} = __webpack_require__(8029);
-const IncomingMessage = __webpack_require__(8942);
-const urlToOptions = __webpack_require__(193);
-const proxyEvents = __webpack_require__(7216);
-const isRequestPseudoHeader = __webpack_require__(3431);
+const {Agent, globalAgent} = __webpack_require__(9898);
+const IncomingMessage = __webpack_require__(2575);
+const urlToOptions = __webpack_require__(2686);
+const proxyEvents = __webpack_require__(1818);
+const isRequestPseudoHeader = __webpack_require__(1199);
 const {
 	ERR_INVALID_ARG_TYPE,
 	ERR_INVALID_PROTOCOL,
@@ -7811,7 +7826,7 @@ const {
 	ERR_INVALID_HTTP_TOKEN,
 	ERR_HTTP_INVALID_HEADER_VALUE,
 	ERR_INVALID_CHAR
-} = __webpack_require__(3632);
+} = __webpack_require__(7087);
 
 const {
 	HTTP2_HEADER_STATUS,
@@ -8245,7 +8260,7 @@ module.exports = ClientRequest;
 
 /***/ }),
 
-/***/ 8942:
+/***/ 2575:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -8311,16 +8326,16 @@ module.exports = IncomingMessage;
 
 /***/ }),
 
-/***/ 2084:
+/***/ 4645:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 const http2 = __webpack_require__(7565);
-const agent = __webpack_require__(8029);
-const ClientRequest = __webpack_require__(7225);
-const IncomingMessage = __webpack_require__(8942);
-const auto = __webpack_require__(3743);
+const agent = __webpack_require__(9898);
+const ClientRequest = __webpack_require__(9632);
+const IncomingMessage = __webpack_require__(2575);
+const auto = __webpack_require__(7167);
 
 const request = (url, options, callback) => {
 	return new ClientRequest(url, options, callback);
@@ -8347,7 +8362,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3442:
+/***/ 1982:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -8382,7 +8397,7 @@ module.exports = options => {
 
 /***/ }),
 
-/***/ 3632:
+/***/ 7087:
 /***/ ((module) => {
 
 "use strict";
@@ -8435,7 +8450,7 @@ makeError(TypeError, 'ERR_INVALID_CHAR', args => {
 
 /***/ }),
 
-/***/ 3431:
+/***/ 1199:
 /***/ ((module) => {
 
 "use strict";
@@ -8456,7 +8471,7 @@ module.exports = header => {
 
 /***/ }),
 
-/***/ 7216:
+/***/ 1818:
 /***/ ((module) => {
 
 "use strict";
@@ -8471,7 +8486,7 @@ module.exports = (from, to, events) => {
 
 /***/ }),
 
-/***/ 193:
+/***/ 2686:
 /***/ ((module) => {
 
 "use strict";
@@ -8504,7 +8519,7 @@ module.exports = url => {
 
 /***/ }),
 
-/***/ 9154:
+/***/ 2820:
 /***/ ((__unused_webpack_module, exports) => {
 
 //TODO: handle reviver/dehydrate function like normal
@@ -8569,14 +8584,14 @@ exports.parse = function (s) {
 
 /***/ }),
 
-/***/ 9325:
+/***/ 1531:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 const EventEmitter = __webpack_require__(8614);
-const JSONB = __webpack_require__(9154);
+const JSONB = __webpack_require__(2820);
 
 const loadStore = opts => {
 	const adapters = {
@@ -8688,7 +8703,7 @@ module.exports = Keyv;
 
 /***/ }),
 
-/***/ 2222:
+/***/ 9662:
 /***/ ((module) => {
 
 "use strict";
@@ -8706,7 +8721,7 @@ module.exports = object => {
 
 /***/ }),
 
-/***/ 3277:
+/***/ 2610:
 /***/ ((module) => {
 
 "use strict";
@@ -8791,7 +8806,7 @@ module.exports = (fromStream, toStream) => {
 
 /***/ }),
 
-/***/ 7077:
+/***/ 7952:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -9020,10 +9035,10 @@ module.exports.default = normalizeUrl;
 
 /***/ }),
 
-/***/ 447:
+/***/ 1223:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var wrappy = __webpack_require__(5448)
+var wrappy = __webpack_require__(2940)
 module.exports = wrappy(once)
 module.exports.strict = wrappy(onceStrict)
 
@@ -9069,7 +9084,7 @@ function onceStrict (fn) {
 
 /***/ }),
 
-/***/ 3868:
+/***/ 9072:
 /***/ ((module) => {
 
 "use strict";
@@ -9184,11 +9199,11 @@ module.exports.CancelError = CancelError;
 
 /***/ }),
 
-/***/ 5636:
+/***/ 8341:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var once = __webpack_require__(447)
-var eos = __webpack_require__(2534)
+var once = __webpack_require__(1223)
+var eos = __webpack_require__(1205)
 var fs = __webpack_require__(5747) // we only need fs to get the ReadStream and WriteStream prototypes
 
 var noop = function () {}
@@ -9273,7 +9288,7 @@ module.exports = pump
 
 /***/ }),
 
-/***/ 2421:
+/***/ 9273:
 /***/ ((module) => {
 
 "use strict";
@@ -9404,7 +9419,7 @@ module.exports = QuickLRU;
 
 /***/ }),
 
-/***/ 9221:
+/***/ 6624:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -9428,14 +9443,14 @@ module.exports = (options = {}) => new Promise((resolve, reject) => {
 
 /***/ }),
 
-/***/ 9176:
+/***/ 9004:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 const Readable = __webpack_require__(2413).Readable;
-const lowercaseKeys = __webpack_require__(2222);
+const lowercaseKeys = __webpack_require__(9662);
 
 class Response extends Readable {
 	constructor(statusCode, headers, body, url) {
@@ -9470,7 +9485,7 @@ module.exports = Response;
 
 /***/ }),
 
-/***/ 5448:
+/***/ 2940:
 /***/ ((module) => {
 
 // Returns a wrapper function that returns a wrapped callback
@@ -9507,14 +9522,6 @@ function wrappy (fn, cb) {
   }
 }
 
-
-/***/ }),
-
-/***/ 2661:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse("{\"name\":\"@lokalise/node-api\",\"version\":\"5.2.0\",\"description\":\"Official Lokalise API 2.0 Node.js client\",\"license\":\"BSD-3-Clause\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/lokalise/node-lokalise-api.git\"},\"keywords\":[\"api\",\"node\",\"typescript\",\"lokalise\",\"client\",\"client library\"],\"scripts\":{\"build\":\"tsc\",\"test\":\"tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 10000\"},\"devDependencies\":{\"@istanbuljs/nyc-config-typescript\":\"^1.0.1\",\"@types/chai\":\"^4.2.12\",\"@types/mocha\":\"^8.0.3\",\"@types/node\":\"^14.11.2\",\"@typescript-eslint/eslint-plugin\":\"^4.3.0\",\"@typescript-eslint/parser\":\"^4.3.0\",\"acorn\":\"^8.0.3\",\"chai\":\"^4.2.0\",\"codecov\":\"^3.7.2\",\"dotenv\":\"^8.2.0\",\"eslint\":\"^7.10.0\",\"eslint-config-prettier\":\"^6.12.0\",\"eslint-plugin-node\":\"^11.1.0\",\"eslint-plugin-prettier\":\"^3.1.4\",\"mocha\":\"^8.1.3\",\"mocha-cassettes\":\"1.2.0\",\"nyc\":\"^15.1\",\"prettier\":\"2.1.2\",\"source-map-support\":\"^0.5.19\",\"ts-node\":\"^9.0.0\"},\"dependencies\":{\"got\":\"^11.7.0\",\"typescript\":\"^4.0.3\"},\"bugs\":{\"url\":\"https://github.com/lokalise/node-lokalise-api/issues\"},\"homepage\":\"https://lokalise.github.io/node-lokalise-api\",\"main\":\"./index.js\",\"typings\":\"./index.d.ts\",\"directories\":{\"lib\":\"./src\",\"test\":\"./test\"},\"author\":\"Lokalise group, Ilya Bodrov\",\"engines\":{\"node\":\">=10\"}}");
 
 /***/ }),
 
@@ -9670,6 +9677,35 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -9687,6 +9723,6 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(5923);
+/******/ 	return __webpack_require__(1731);
 /******/ })()
 ;

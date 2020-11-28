@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "yarn global add @vercel/ncc",
     "build": "ncc build index.js --license licenses.txt",
+    "prettier": "prettier --check src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "@lokalise/node-api": "^5.2.0"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.25.1",
     "prettier": "2.1.2"
   }
 }
