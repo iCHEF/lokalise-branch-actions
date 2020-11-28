@@ -1,4 +1,4 @@
-import core from "@actions/core";
+const core = require('@actions/core');
 import lokaliseApi from "../lokaliseApi";
 import formatBranchName from "../utils/formatBranchName";
 const projectId = core.getInput("projectId");

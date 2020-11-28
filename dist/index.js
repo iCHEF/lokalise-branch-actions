@@ -17,18 +17,12 @@ module.exports = JSON.parse("{\"name\":\"@lokalise/node-api\",\"version\":\"5.2.
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __webpack_require__(2186);
-var core_default = /*#__PURE__*/__webpack_require__.n(core);
-
-// EXTERNAL MODULE: ./node_modules/@lokalise/node-api/index.js
-var node_api = __webpack_require__(5919);
 // CONCATENATED MODULE: ./src/lokaliseApi.js
+const core = __webpack_require__(2186);
+const { LokaliseApi } = __webpack_require__(5919);
 
-
-
-const apiKey = core_default().getInput('apiKey');
-const lokaliseApi = new node_api.LokaliseApi({ apiKey: apiKey });
+const apiKey = core.getInput('apiKey');
+const lokaliseApi = new LokaliseApi({ apiKey: apiKey });
 
 /* harmony default export */ const src_lokaliseApi = (lokaliseApi);
 // CONCATENATED MODULE: ./src/utils/formatBranchName.js
@@ -37,10 +31,10 @@ const formatBranchName = (name) => name.replace(/\./g, "_");
 /* harmony default export */ const utils_formatBranchName = (formatBranchName);
 
 // CONCATENATED MODULE: ./src/actions/findBranchByName.js
+const findBranchByName_core = __webpack_require__(2186);
 
 
-
-const projectId = core_default().getInput("projectId");
+const projectId = findBranchByName_core.getInput("projectId");
 
 const findBranchByName = async (branchName) => {
   try {
@@ -60,10 +54,10 @@ const findBranchByName = async (branchName) => {
 /* harmony default export */ const actions_findBranchByName = (findBranchByName);
 
 // CONCATENATED MODULE: ./src/actions/createBranch.js
+const createBranch_core = __webpack_require__(2186);
 
 
-
-const createBranch_projectId = core_default().getInput("projectId");
+const createBranch_projectId = createBranch_core.getInput("projectId");
 
 const createBranch = async (branchName) => {
   const formattedBranchName = utils_formatBranchName(branchName);
@@ -76,11 +70,11 @@ const createBranch = async (branchName) => {
 /* harmony default export */ const actions_createBranch = (createBranch);
 
 // CONCATENATED MODULE: ./src/actions/mergeBranch.js
+const mergeBranch_core = __webpack_require__(2186);
 
 
 
-
-const mergeBranch_projectId = core_default().getInput("projectId");
+const mergeBranch_projectId = mergeBranch_core.getInput("projectId");
 
 const mergeBranch = async ({
   branchNameToMerge,
@@ -125,7 +119,7 @@ const mergeBranch = async ({
     console.log("Merge error: ", error);
     console.log("Pull request url: ", pullRequestUrl);
 
-    core_default().setOutput(
+    mergeBranch_core.setOutput(
       "error",
       JSON.stringify({
         error,
@@ -173,15 +167,15 @@ const createBranchAndBackport = async ({
 
 
 // CONCATENATED MODULE: ./index.js
-
+const index_core = __webpack_require__(2186);
 
 
 
 // get inputs which defined in action metadata file
-const index_projectId = core_default().getInput('projectId');
-const index_apiKey = core_default().getInput('apiKey');
-const actionType = core_default().getInput('actionType');
-const actionPayload = JSON.parse(core_default().getInput('actionPayload'));
+const index_projectId = index_core.getInput('projectId');
+const index_apiKey = index_core.getInput('apiKey');
+const actionType = index_core.getInput('actionType');
+const actionPayload = JSON.parse(index_core.getInput('actionPayload'));
 
 console.log('projectId: ', index_projectId);
 console.log('actionType: ', actionType);
@@ -190,7 +184,7 @@ console.log('actionPayload: ', actionPayload);
 const setProjectNameToOutputs = async () => {
   const project = await src_lokaliseApi.projects.get(index_projectId);
   console.log('project: ', project);
-  core_default().setOutput('projectName', project.name);
+  index_core.setOutput('projectName', project.name);
 };
 
 const actionTypeHandler = async () => {
@@ -220,10 +214,10 @@ const actionTypeHandler = async () => {
     }
 
     console.log('result: ', result);
-    core_default().setOutput('result', JSON.stringify(result));
+    index_core.setOutput('result', JSON.stringify(result));
   } catch (error) {
     console.log('error: ', error.message);
-    core_default().setFailed(error.message);
+    index_core.setFailed(error.message);
   }
 };
 
@@ -1508,9 +1502,8 @@ LokaliseApi.apiKey = null;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-var __webpack_unused_export__;
 
-__webpack_unused_export__ = ({ value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LokaliseApi = void 0;
 const lokalise_1 = __webpack_require__(1660);
 Object.defineProperty(exports, "LokaliseApi", ({ enumerable: true, get: function () { return lokalise_1.LokaliseApi; } }));
@@ -9685,35 +9678,6 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
