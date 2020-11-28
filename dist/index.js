@@ -32,20 +32,25 @@ const lokaliseApi = new node_api.LokaliseApi({ apiKey: apiKey });
 
 /* harmony default export */ const src_lokaliseApi = (lokaliseApi);
 // CONCATENATED MODULE: ./src/utils/formatBranchName.js
-const formatBranchName = (name) => name.replace(/\./g, '_');
+const formatBranchName = (name) => name.replace(/\./g, "_");
 
 /* harmony default export */ const utils_formatBranchName = (formatBranchName);
+
 // CONCATENATED MODULE: ./src/actions/findBranchByName.js
 
 
 
-const projectId = core_default().getInput('projectId');
+const projectId = core_default().getInput("projectId");
 
 const findBranchByName = async (branchName) => {
   try {
     const formattedBranchName = utils_formatBranchName(branchName);
-    const branchList = await src_lokaliseApi.branches.list({ project_id: projectId });
-    const foundBranch = branchList.find((element) => element.name === formattedBranchName);
+    const branchList = await src_lokaliseApi.branches.list({
+      project_id: projectId,
+    });
+    const foundBranch = branchList.find(
+      (element) => element.name === formattedBranchName
+    );
     return foundBranch;
   } catch (error) {
     throw error;
@@ -53,11 +58,12 @@ const findBranchByName = async (branchName) => {
 };
 
 /* harmony default export */ const actions_findBranchByName = (findBranchByName);
+
 // CONCATENATED MODULE: ./src/actions/createBranch.js
 
 
 
-const createBranch_projectId = core_default().getInput('projectId');
+const createBranch_projectId = core_default().getInput("projectId");
 
 const createBranch = async (branchName) => {
   const formattedBranchName = utils_formatBranchName(branchName);
@@ -68,12 +74,13 @@ const createBranch = async (branchName) => {
 };
 
 /* harmony default export */ const actions_createBranch = (createBranch);
+
 // CONCATENATED MODULE: ./src/actions/mergeBranch.js
 
 
 
 
-const mergeBranch_projectId = core_default().getInput('projectId');
+const mergeBranch_projectId = core_default().getInput("projectId");
 
 const mergeBranch = async ({
   branchNameToMerge,
@@ -115,11 +122,11 @@ const mergeBranch = async ({
   } catch (error) {
     const pullRequestUrl = `https://app.lokalise.com/merge/${mergeBranch_projectId}/${headBranch.branch_id}/${baseBranch.branch_id}`;
 
-    console.log('Merge error: ', error);
-    console.log('Pull request url: ', pullRequestUrl);
+    console.log("Merge error: ", error);
+    console.log("Pull request url: ", pullRequestUrl);
 
     core_default().setOutput(
-      'error',
+      "error",
       JSON.stringify({
         error,
         data: {
@@ -145,7 +152,7 @@ const createBranchAndBackport = async ({
 }) => {
   try {
     const createdResult = await actions_createBranch(branchNameToCreate);
-    console.log('create: ', createdResult);
+    console.log("create: ", createdResult);
 
     return await actions_mergeBranch({
       branchNameToMerge: branchNameToBackport,
@@ -158,6 +165,7 @@ const createBranchAndBackport = async ({
 };
 
 /* harmony default export */ const actions_createBranchAndBackport = (createBranchAndBackport);
+
 // CONCATENATED MODULE: ./src/actions/index.js
 
 
