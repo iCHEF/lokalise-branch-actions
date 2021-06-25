@@ -36,11 +36,14 @@ const findBranchByName_core = __webpack_require__(2186);
 
 const projectId = findBranchByName_core.getInput("projectId");
 
+const BRANCH_LISTING_MAX_LIMIT = 5000;
+
 const findBranchByName = async (branchName) => {
   try {
     const formattedBranchName = utils_formatBranchName(branchName);
     const branchList = await src_lokaliseApi.branches.list({
       project_id: projectId,
+      limit: BRANCH_LISTING_MAX_LIMIT,
     });
     const foundBranch = branchList.find(
       (element) => element.name === formattedBranchName
